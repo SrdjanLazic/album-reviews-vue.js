@@ -1,6 +1,6 @@
 <template>
 
-  <div>
+  <div class="container-fluid">
     <b-pagination
         v-model="currentPage"
         :total-rows="albums.length"
@@ -18,6 +18,7 @@
         :per-page="perPage"
         :current-page="currentPage"
         @row-clicked="rowClicked"
+        class="table"
     >
     </b-table>
 
@@ -79,4 +80,9 @@
     margin: 25px 0 15px 0;
     justify-content: center;
   }
+
+  .container-fluid {
+    max-width: 70%;
+  }
+
 </style>

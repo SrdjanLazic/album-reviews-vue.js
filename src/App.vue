@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div>
-      <b-navbar toggleable="sm" type="dark" variant="info">
+      <b-navbar toggleable="sm" type="dark" variant="dark">
         <b-navbar-brand to="/">Album Reviews</b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -100,5 +100,6 @@
   text-align: center;
   color: #2c3e50;
 }
+
 
 </style>

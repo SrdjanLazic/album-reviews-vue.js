@@ -1,24 +1,19 @@
 <template>
   <div>
-<!--    <SingleAlbumCard v-if="album" :album="album" />-->
-    <p>{{album}}</p>
+    <SingleAlbumCard v-if="album" :album="album" />
   </div>
 </template>
 
 <script>
-import SingleAlbum from "@/components/SingleAlbumCard";
+import SingleAlbumCard from "@/components/SingleAlbumCard";
 import {mapActions, mapState} from "vuex";
 
 export default {
+
   name: "Single",
+
   components: {
-    SingleAlbum
-  },
-
-  data(){
-    return {
-
-    }
+    SingleAlbumCard
   },
 
   computed: {
@@ -34,9 +29,7 @@ export default {
   },
 
   mounted() {
-    this.fetchAlbumByID(this.$route.params.id).then( res => {
-      this.album = res;
-    });
+    this.fetchAlbumByID(this.$route.params.id);
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
 
-  <div>
+  <div class="container-fluid">
     <b-pagination
         v-model="currentPage"
         :total-rows="artists.length"
@@ -77,5 +77,9 @@
   .pagination {
     margin: 25px 0 15px 0;
     justify-content: center;
+  }
+
+  .container-fluid {
+    max-width: 30%;
   }
 </style>
