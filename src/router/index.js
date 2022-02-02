@@ -3,6 +3,10 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Register from '@/views/Register.vue';
 import Login from '@/views/Login.vue';
+import Albums from "@/views/Albums";
+import Artists from "@/views/Artists";
+import Single from "@/views/SingleAlbum";
+import SingleAlbum from "@/views/SingleAlbum";
 
 Vue.use(VueRouter)
 
@@ -21,7 +25,23 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
-  }
+  },
+  {
+    path: '/albums',
+    name: 'Albums',
+    component: Albums
+  },
+  {
+    path: '/artists',
+    name: 'Artists',
+    component: Artists
+  },
+  {
+    path: '/album/:id',
+    name: 'SingleAlbum',
+    component: SingleAlbum
+  },
+
   // {
   //   path: '/about',
   //   name: 'About',

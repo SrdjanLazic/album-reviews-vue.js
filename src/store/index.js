@@ -6,7 +6,10 @@ Vue.use(Vuex)
 export default new Vuex.Store({
 
   state: {
-    token: ''
+    token: '',
+    albums: [],
+    artists: [],
+    album: null
   },
 
   mutations: {
@@ -18,12 +21,55 @@ export default new Vuex.Store({
     removeToken(state) {
       state.token = '';
       localStorage.token = '';
+    },
+
+    addAlbums(state, albums) {
+      state.albums = albums;
+    },
+
+    addArtists(state, artists) {
+      state.artists = artists;
+    },
+
+    getAlbumByID(state, album){
+      state.album = album;
     }
   },
 
   actions: {
+    fetchAlbums({ commit }) {
+      fetch('http://localhost:8082/admin/albums',{
+        headers: {
+          'Authorization': `Bearer ${localStorage.token}`
+        }
+      })
+          .then( obj => obj.json() )
+          .then( res => commit('addAlbums', res) );
+    },
+
+    fetchAlbumByID({ commit }, id) {
+      fetch(`http://localhost:8082/admin/album/${id}`,{
+        headers: {
+          'Authorization': `Bearer ${localStorage.token}`
+        }
+      })
+          .then( obj => obj.json() )
+          .then( res => commit('getAlbumByID', res) );
+    },
+
+    fetchArtists({ commit }) {
+      fetch('http://localhost:8082/admin/artists',{
+        headers: {
+          'Authorization': `Bearer ${localStorage.token}`
+        }
+      })
+          .then( obj => obj.json() )
+          .then( res => commit('addArtists', res) );
+    },
+
+
     register({ commit }, obj) {
-      fetch('http://127.0.0.1:8080/register', {
+      fetch('http://127.0.0.1:8081/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(obj)
@@ -32,7 +78,7 @@ export default new Vuex.Store({
     },
 
     login({ commit }, obj) {
-      fetch('http://127.0.0.1:8080/login', {
+      fetch('http://127.0.0.1:8081/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(obj)
@@ -47,5 +93,6 @@ export default new Vuex.Store({
     }
   },
   modules: {
+
   }
 })

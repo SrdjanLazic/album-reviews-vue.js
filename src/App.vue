@@ -2,7 +2,7 @@
   <div id="app">
     <div>
       <b-navbar toggleable="sm" type="dark" variant="info">
-        <b-navbar-brand to="/">MusicDB</b-navbar-brand>
+        <b-navbar-brand to="/">Album Reviews</b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -10,7 +10,9 @@
           <b-navbar-nav>
             <b-nav-item to="/">Home</b-nav-item>
             <b-nav-item-dropdown text="Categories" right>
-              <b-dropdown-item href="#"></b-dropdown-item>
+              <b-dropdown-item to="/albums">Albums</b-dropdown-item>
+              <b-dropdown-item to="/artists">Artists</b-dropdown-item>
+              <b-dropdown-item to="/reviews">Reviews</b-dropdown-item>
 <!--              <b-dropdown-item-->
 <!--                  v-for="dep in departments"-->
 <!--                  :key="dep.departmentId"-->
