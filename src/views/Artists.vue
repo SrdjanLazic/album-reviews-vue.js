@@ -2,6 +2,7 @@
 
   <div class="container-fluid">
     <b-pagination
+        pills size="md"
         v-model="currentPage"
         :total-rows="artists.length"
         :per-page="perPage"
@@ -22,6 +23,7 @@
     </b-table>
 
     <b-pagination
+        pills size="md"
         v-model="currentPage"
         :total-rows="artists.length"
         :per-page="perPage"
@@ -64,7 +66,7 @@
       ]),
 
       rowClicked(record, index) {
-        this.$router.push({ name: 'Single', params: { id: record.objectID } });
+        this.$router.push({ name: 'SingleArtist', params: { id: record.id } });
       }
     }
 
@@ -81,5 +83,7 @@
 
   .container-fluid {
     max-width: 30%;
+    cursor: pointer;
   }
+
 </style>

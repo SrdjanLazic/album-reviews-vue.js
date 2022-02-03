@@ -2,6 +2,7 @@
 
   <div class="container-fluid">
     <b-pagination
+        pills size="md"
         v-model="currentPage"
         :total-rows="albums.length"
         :per-page="perPage"
@@ -23,6 +24,7 @@
     </b-table>
 
     <b-pagination
+        pills size="md"
         v-model="currentPage"
         :total-rows="albums.length"
         :per-page="perPage"
@@ -82,7 +84,8 @@
   }
 
   .container-fluid {
-    max-width: 70%;
+    max-width: 60%;
+    cursor: pointer;
   }
 
 </style>

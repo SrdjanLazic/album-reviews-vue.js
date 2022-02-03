@@ -9,7 +9,8 @@ export default new Vuex.Store({
     token: '',
     albums: [],
     artists: [],
-    album: null
+    album: null,
+    artist: null
   },
 
   mutations: {
@@ -33,6 +34,10 @@ export default new Vuex.Store({
 
     getAlbumByID(state, album){
       state.album = album;
+    },
+
+    getArtistByID(state, artist){
+      state.artist = artist;
     }
   },
 
@@ -55,6 +60,16 @@ export default new Vuex.Store({
       })
           .then( obj => obj.json() )
           .then( res => commit('getAlbumByID', res) );
+    },
+
+    fetchArtistByID({ commit }, id) {
+      fetch(`http://localhost:8082/admin/artist/${id}`,{
+        headers: {
+          'Authorization': `Bearer ${localStorage.token}`
+        }
+      })
+          .then( obj => obj.json() )
+          .then( res => commit('getArtistByID', res) );
     },
 
     fetchArtists({ commit }) {
