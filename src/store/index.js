@@ -10,7 +10,8 @@ export default new Vuex.Store({
     albums: [],
     artists: [],
     album: null,
-    artist: null
+    artist: null,
+    reviews: []
   },
 
   mutations: {
@@ -30,6 +31,10 @@ export default new Vuex.Store({
 
     addArtists(state, artists) {
       state.artists = artists;
+    },
+
+    addReviews(state, reviews){
+      state.reviews = reviews;
     },
 
     getAlbumByID(state, album){
@@ -80,6 +85,50 @@ export default new Vuex.Store({
       })
           .then( obj => obj.json() )
           .then( res => commit('addArtists', res) );
+    },
+
+    fetchReviews({ commit }) {
+      fetch('http://localhost:8082/admin/reviews',{
+        headers: {
+          'Authorization': `Bearer ${localStorage.token}`
+        }
+      })
+          .then( obj => obj.json() )
+          .then( res => commit('addReviews', res) );
+    },
+
+    postReview({ commit }, obj) {
+      fetch('http://localhost:8082/admin/reviews', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.token}`
+        },
+        body: JSON.stringify(obj)
+      })
+          .then(res => res.json())
+          .then(data => {
+            if(data.msg){
+              swal("Error!", data.msg, "error");
+            }
+      })
+    },
+
+    putReview({commit}, {obj, id}) {
+      fetch(`http://localhost:8082/admin/review/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.token}`
+        },
+        body: JSON.stringify(obj)
+      })
+          .then(res => res.json())
+          .then(data =>{
+            if(data.msg){
+              swal("Error!", data.msg, "error");
+            }
+      })
     },
 
 

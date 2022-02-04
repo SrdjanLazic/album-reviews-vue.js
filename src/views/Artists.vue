@@ -43,9 +43,9 @@
 
     data(){
       return {
-        fields: ['name'],
+        fields: [{key: 'name', sortable: true}],
         currentPage: 1,
-        perPage: 3
+        perPage: 7
       }
     },
 

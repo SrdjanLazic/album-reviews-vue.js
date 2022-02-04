@@ -1,5 +1,4 @@
 <template>
-
   <div class="container-fluid">
     <b-pagination
         pills size="md"
@@ -44,9 +43,9 @@
 
     data(){
       return {
-        fields: ['title', {key: 'artist.name', label: 'Artist'}, 'genre', 'year'],
+        fields: [{key: 'title', sortable: true}, {key: 'artist.name', label: 'Artist', sortable: true}, {key: 'genre', sortable: true}, {key: 'year', sortable:true}],
         currentPage: 1,
-        perPage: 3
+        perPage: 7
       }
     },
 
@@ -67,7 +66,6 @@
       ]),
 
       rowClicked(record, index) {
-        console.log(record.title);
         this.$router.push({ name: 'SingleAlbum', params: { id: record.id } });
       }
     }

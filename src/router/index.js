@@ -7,6 +7,7 @@ import Albums from "@/views/Albums";
 import Artists from "@/views/Artists";
 import SingleAlbum from "@/views/SingleAlbum";
 import SingleArtist from "@/views/SingleArtist";
+import EditReview from "@/views/EditReview";
 
 Vue.use(VueRouter)
 
@@ -46,6 +47,11 @@ const routes = [
     name: 'SingleArtist',
     component: SingleArtist
   },
+  {
+    path: '/review/edit/:id',
+    name: 'EditReview',
+    component: EditReview
+  }
 
   // {
   //   path: '/about',

@@ -1,21 +1,24 @@
 <template>
-  <div>
-    <h1>Album Reviews</h1>
-    <h3 v-if="subtitle">{{subtitle}}</h3>
+  <div class="naslov">
+    <h3 v-if="subtitle">{{ subtitle }}</h3>
   </div>
-
 </template>
 
 <script>
+
 export default {
-  name: "Header",
+  name: 'Header',
 
   props: {
     subtitle: String
   }
 }
+
 </script>
 
 <style scoped>
-
+.naslov {
+  padding-top: 15px;
+  margin-bottom: 25px;
+}
 </style>

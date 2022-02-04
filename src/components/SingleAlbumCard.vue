@@ -8,9 +8,9 @@
           img-top
           tag="article"
           style="max-width: 20rem;"
-          class="mb-2"
+          class="mb-2 shadow p-3 mb-5 bg-white rounded"
       >
-        <h4><strong>{{album.artist.name}}</strong></h4>
+        <h4><strong  class="artistName" @click="openArtist" :id="album.artist.id">{{album.artist.name}}</strong></h4>
         <b-card-text>
           <p id="year">Year: {{album.year}}</p>
           <p>Genre: {{album.genre}}</p>
@@ -28,7 +28,13 @@ export default {
 
   props: {
     album: Object
-  }
+  },
+
+  methods: {
+    openArtist(e){
+      this.$router.push({ name: 'SingleArtist', params: { id: e.target.id } });
+    }
+  },
 
 }
 </script>
@@ -40,11 +46,17 @@ export default {
   }
 
   .d-flex {
-    margin: 25px 0;
+    margin-bottom: 25px;
+    padding: 25px;
+    /*filter: drop-shadow(0 3px 0.25rem #828282);*/
   }
 
   #year {
     padding-top: 35px;
+  }
+
+  .artistName {
+    cursor: pointer;
   }
 
 </style>
