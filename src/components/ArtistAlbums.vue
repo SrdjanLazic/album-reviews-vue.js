@@ -5,12 +5,12 @@
       <b-container>
         <b-row v-if="artist.albums.length > 0">
           <b-col class="albums" v-for="album in artist.albums" :key="album.id">
-            <b-img class="shadow p-1 mb-4 bg-white rounded" @click="openAlbum" :id="album.id" thumbnail fluid :src="album.albumArtURL" width="300" alt="Image 1"></b-img>
+            <b-img class="shadow p-1 mb-4 bg-white rounded img" @click="openAlbum" :id="album.id" thumbnail fluid :src="album.albumArtURL" width="300" alt="Image 1"></b-img>
             <h5>{{album.title}}</h5>
           </b-col>
         </b-row>
         <b-row v-else>
-          <b-col><h5>No albums to show. 😢</h5></b-col>
+          <b-col><h5>No albums to show.</h5></b-col>
         </b-row>
       </b-container>
     </div>
@@ -44,6 +44,14 @@ export default {
 
 .albums {
   cursor: pointer;
+}
+
+.albums:hover {
+  transform: scale(1.05);
+}
+
+.albums {
+  transition: transform 0.2s ease;
 }
 
 </style>

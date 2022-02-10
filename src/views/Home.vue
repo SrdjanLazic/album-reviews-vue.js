@@ -26,12 +26,14 @@ export default {
 
   methods: {
     ...mapActions([
-      'fetchReviews'
+      'fetchReviews',
+      'fetchAlbums'
     ]),
   },
 
   mounted(){
       this.fetchReviews();
+      this.fetchAlbums();
   }
 }
 </script>

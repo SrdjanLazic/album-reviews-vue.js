@@ -43,6 +43,39 @@ export default new Vuex.Store({
 
     getArtistByID(state, artist){
       state.artist = artist;
+    },
+
+    addReview(state, obj){
+
+      const album = state.albums.filter(album => album.id === obj.albumId)[0];
+      if(album){
+        album.reviews.push(obj);
+        state.album = album;
+      }
+    },
+
+    updateReview(state, obj){
+
+      const album = state.albums.filter(album => album.id === obj.albumId)[0];
+      if(album){
+        state.album = album;
+        for (let rev of album.reviews) {
+          if(rev.id === obj.id){
+            rev.body = obj.body;
+            rev.rating = obj.rating;
+          }
+        }
+      }
+    },
+
+
+    deleteReview(state, obj){
+
+      const album = state.albums.filter(album => album.id === obj.albumId)[0];
+      if(album){
+        state.album = album;
+        album.reviews = album.reviews.filter(review => review.id !== obj.id);
+      }
     }
   },
 
@@ -129,6 +162,25 @@ export default new Vuex.Store({
               swal("Error!", data.msg, "error");
             }
       })
+    },
+
+    socket_review({commit}, msg){
+      const review = JSON.parse(msg);
+      commit('addReview', review)
+    },
+
+    socket_reviewUpdate({commit}, msg){
+      const review = JSON.parse(msg);
+      commit('updateReview', review)
+    },
+
+    socket_reviewDelete({commit}, msg){
+      const review = JSON.parse(msg);
+      commit('deleteReview', review)
+    },
+
+    socket_error(msg){
+      swal(msg.error);
     },
 
 

@@ -78,6 +78,12 @@
       logout(){
         this.removeToken();
       }
+    },
+
+    sockets: {
+      error(err){
+        swal(err);
+      }
     }
   }
 </script>

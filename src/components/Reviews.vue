@@ -20,22 +20,25 @@
       <div class="button-div">
         <b-button variant="outline-dark" @click="saveReview">Post review</b-button>
       </div>
-
+      <h3 v-if="album.reviews.length === 0">No reviews to show.</h3>
       <b-card-group deck v-for="review in album.reviews" :key="review.id">
         <b-card
             align="center"
-            class="shadow-sm p-1 mb-1 bg-white rounded"
+            class="shadow-sm p-1 mb-1 bg-white rounded card"
         >
           <b-card-title><b-icon-chat-quote-fill class="icon"></b-icon-chat-quote-fill></b-card-title>
           {{ review.body }}
           <br>
           <div class="footer">
-            <b-icon-star-fill v-for="rating in review.rating"/>
+            <b-form-rating id="rating-inline" readonly no-border inline :value="review.rating"></b-form-rating>
             <span></span>
             {{review.createdAt | formatDate}}
           </div>
+          <br>
           <b-card-title>
-              <b-icon-pencil-fill @click="editReview" class="edit" :id="review.id"></b-icon-pencil-fill>
+              <b-icon-pencil-fill @click="editReview" class="buttons" :id="review.id"></b-icon-pencil-fill>
+              <span></span>
+              <b-icon-trash-fill class="buttons" :id="review.id" @click="deleteReview"></b-icon-trash-fill>
           </b-card-title>
         </b-card>
       </b-card-group>
@@ -47,6 +50,7 @@
 
 <script>
 import {mapActions, mapState} from "vuex";
+import albums from "@/views/Albums";
 
 export default {
   name: "Reviews",
@@ -57,7 +61,8 @@ export default {
 
   computed: {
     ...mapState([
-      'token'
+      'token',
+      'reviews'
     ]),
 
     reviewState() {
@@ -72,23 +77,37 @@ export default {
       value: null,
     }
   },
+
   methods: {
 
     ...mapActions([
-        'postReview'
+        'postReview',
+        'fetchAlbums'
       ]),
 
       saveReview(){
-        if(this.review !== "" && this.value !== null)
-          this.postReview({body: this.review, rating: this.value, albumId: this.album.id});
+        if(this.review !== "" && this.value !== null) {
+          //this.postReview({body: this.review, rating: this.value, albumId: this.album.id});
+          console.log(this.token);
+          this.$socket.emit('review', {body: this.review, rating: this.value, albumId: this.album.id, token: this.token})
+          this.review = "";
+          this.value = null;
+        }
         else
           swal("Please fill in all the fields first.");
       },
 
       editReview(e){
         this.$router.push({ name: 'EditReview', params: { id: e.currentTarget.id } })
+      },
+
+      deleteReview(e){
+        this.$socket.emit('reviewDelete', {id:e.currentTarget.id, token: this.token})
       }
-    }
+    },
+  mounted() {
+    this.fetchAlbums();
+  }
 }
 
 </script>
@@ -118,9 +137,15 @@ export default {
 
 }
 
+.buttons:hover{
+  transform: scale(1.15);
+}
+
 .icon {
   margin: 15px 0;
 }
+
+
 
 .container-fluid {
   padding: 15px 25px;
@@ -140,9 +165,10 @@ span {
   padding-bottom: 25px;
 }
 
-.edit {
+.buttons {
   margin-top: 30px;
   cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
 h4 {

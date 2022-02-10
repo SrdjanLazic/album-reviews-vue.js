@@ -11,7 +11,7 @@
         {{review.body}}
       </b-card-text>
       <b-card-footer>
-        <b-icon-star-fill v-for="rating in review.rating"/>
+        <b-form-rating id="rating-inline" readonly no-border inline :value="review.rating"></b-form-rating>
         <span></span>
         {{review.createdAt | formatDate}}
       </b-card-footer>
@@ -57,6 +57,10 @@ export default {
 
 .header{
   cursor: pointer;
+}
+
+#rating-inline {
+  background: none;
 }
 span {
   margin-left: 35px;

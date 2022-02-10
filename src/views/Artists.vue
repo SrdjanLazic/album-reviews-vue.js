@@ -1,6 +1,9 @@
 <template>
 
   <div class="container-fluid">
+    <br>
+    <b-input type="search" v-model="filter" placeholder="Filter artists.."></b-input>
+    <hr/>
     <b-pagination
         pills size="md"
         v-model="currentPage"
@@ -15,6 +18,7 @@
         fixed
         :items="artists"
         :fields="fields"
+        :filter="filter"
         small
         :per-page="perPage"
         :current-page="currentPage"
@@ -45,7 +49,8 @@
       return {
         fields: [{key: 'name', sortable: true}],
         currentPage: 1,
-        perPage: 7
+        perPage: 5,
+        filter: ""
       }
     },
 

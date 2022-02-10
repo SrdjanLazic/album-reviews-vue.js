@@ -1,5 +1,8 @@
 <template>
   <div class="container-fluid">
+    <br>
+    <b-input type="search" v-model="filter" placeholder="Filter albums.."></b-input>
+    <hr/>
     <b-pagination
         pills size="md"
         v-model="currentPage"
@@ -14,6 +17,7 @@
         fixed
         :items="albums"
         :fields="fields"
+        :filter="filter"
         small
         :per-page="perPage"
         :current-page="currentPage"
@@ -45,7 +49,8 @@
       return {
         fields: [{key: 'title', sortable: true}, {key: 'artist.name', label: 'Artist', sortable: true}, {key: 'genre', sortable: true}, {key: 'year', sortable:true}],
         currentPage: 1,
-        perPage: 7
+        perPage: 7,
+        filter: ""
       }
     },
 
@@ -82,7 +87,7 @@
   }
 
   .container-fluid {
-    max-width: 60%;
+    max-width: 50%;
     cursor: pointer;
   }
 

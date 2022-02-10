@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import VueSocketIO from "vue-socket.io";
 
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
@@ -16,6 +17,14 @@ Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 Vue.use(VueSweetalert2);
+Vue.use(new VueSocketIO({
+  debug: false,
+  connection: 'ws://localhost:8080',
+  vuex: {
+    store,
+    actionPrefix: 'socket_'
+  }
+}))
 
 
 Vue.config.productionTip = false

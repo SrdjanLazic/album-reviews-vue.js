@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import {mapActions} from "vuex";
+import {mapActions, mapState} from "vuex";
 
 export default {
   name: "EditAlbum",
@@ -32,6 +32,11 @@ export default {
   },
 
   computed: {
+    ...mapState([
+      'album',
+      'token'
+    ]),
+
     reviewState() {
       return this.review.length > 0
     },
@@ -45,7 +50,8 @@ export default {
 
     saveReview() {
       if (this.review !== "" && this.value !== null){
-        this.putReview({obj: {body: this.review, rating: this.value}, id: this.$route.params.id} );
+        this.$socket.emit('reviewUpdate', {id: parseInt(this.$route.params.id), body: this.review, rating: this.value, albumId: this.album.id, token: this.token})
+        //this.putReview({obj: {body: this.review, rating: this.value}, id: this.$route.params.id} );
         this.$router.back();
       }
       else

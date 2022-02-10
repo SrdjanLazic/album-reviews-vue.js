@@ -8,12 +8,15 @@
           img-top
           tag="article"
           style="max-width: 20rem;"
-          class="mb-2 shadow p-3 mb-5 bg-white rounded"
+          class="mb-2 shadow p-3 mb-5 bg-white rounded card"
       >
         <h4><strong  class="artistName" @click="openArtist" :id="album.artist.id">{{album.artist.name}}</strong></h4>
         <b-card-text>
           <p id="year">Year: {{album.year}}</p>
           <p>Genre: {{album.genre}}</p>
+          <br>
+          <p>Rating:</p>
+          <b-form-rating :value="averageRating()" class="rating" show-value precision="2" readonly></b-form-rating>
         </b-card-text>
       </b-card>
     </div>
@@ -22,6 +25,8 @@
 </template>
 
 <script>
+
+import albums from "@/views/Albums";
 
 export default {
   name: "SingleAlbum",
@@ -33,7 +38,17 @@ export default {
   methods: {
     openArtist(e){
       this.$router.push({ name: 'SingleArtist', params: { id: e.target.id } });
+    },
+
+    averageRating(){
+      let sum = 0;
+
+      for (let review of this.album.reviews) {
+        sum += review.rating;
+      }
+      return ((sum / this.album.reviews.length).toFixed(2));
     }
+
   },
 
 }
@@ -43,6 +58,7 @@ export default {
   img {
     max-width: 600px;
     max-height: 600px;
+
   }
 
   .d-flex {
@@ -57,6 +73,14 @@ export default {
 
   .artistName {
     cursor: pointer;
+  }
+
+  .card:hover {
+    transform: scale(1.03);
+  }
+
+  .card{
+    transition: transform 0.2s ease;
   }
 
 </style>
